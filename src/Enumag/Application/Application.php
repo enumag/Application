@@ -38,7 +38,7 @@ class Application extends BaseApplication
 
 		} catch (\Exception $e) {
 			$this->onError($this, $e);
-			
+
 			// if catchExceptions is NULL, catch only BadRequestException
 			if (($this->catchExceptions || ($this->catchExceptions === NULL && $e instanceof BadRequestException)) && $this->errorPresenter) {
 				try {
