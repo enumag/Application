@@ -21,6 +21,7 @@
 		"arachne/coding-style": "@dev"
 	},
 	"suggest": {
+		"arachne/verifier": "Provides annotations-based security.",
 		"arachne/entity-loader": "Allows object parameters in application request."
 	},
 	"autoload": {
