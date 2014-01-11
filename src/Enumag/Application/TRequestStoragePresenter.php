@@ -73,12 +73,4 @@ trait TRequestStoragePresenter
 		}
 	}
 
-	public function redirectBack($fallback = 'default')
-	{
-		// TODO: create URL from request and redirect?
-		$this->restoreRequest($this->backlink);
-		$this->redirectVerified($fallback);
-		$this->redirect('this');
-	}
-
 }
