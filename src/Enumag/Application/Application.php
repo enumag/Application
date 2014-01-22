@@ -65,10 +65,12 @@ class Application extends BaseApplication
 		$request = end($requests);
 		$args = array('exception' => $e, 'request' => $request ?: NULL);
 
-		$name = $request->getPresenterName();
-		$pos = strrpos($name, ':');
-		$module = $pos !== FALSE ? substr($name, 0, $pos) : '';
-		$errorPresenter = "$module:$this->errorPresenter";
+		if ($request) {
+			$name = $request->getPresenterName();
+			$pos = strrpos($name, ':');
+			$module = $pos !== FALSE ? substr($name, 0, $pos) : '';
+			$errorPresenter = "$module:$this->errorPresenter";
+		}
 
 		try {
 			$this->presenterFactory->getPresenterClass($errorPresenter);
