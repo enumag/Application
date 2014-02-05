@@ -14,5 +14,5 @@ Enumag/Application requires:
 The best way to install Enumag/Application is using [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require arachne/application
+$ composer require enumag/application
 ```
