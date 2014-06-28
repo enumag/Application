@@ -4,6 +4,7 @@ namespace Enumag\Application;
 
 use Nette\Application\Request;
 use Nette\Application\Responses\ForwardResponse;
+use Nette\Application\UI\Presenter;
 
 /**
  * @author Jáchym Toušek
@@ -57,7 +58,7 @@ trait TRequestStoragePresenter
 			return;
 		}
 		$parameters = $request->getParameters();
-		$parameters[self::FLASH_KEY] = $this->getParameter(self::FLASH_KEY);
+		$parameters[Presenter::FLASH_KEY] = $this->getParameter(Presenter::FLASH_KEY);
 		$request->setParameters($parameters);
 		$this->sendResponse(new ForwardResponse($request));
 	}
