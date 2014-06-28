@@ -2,9 +2,13 @@
 
 namespace Enumag\Application;
 
+use Nette\Application\IRouter;
 use Nette\Application\Request;
 use Nette\Application\Responses\ForwardResponse;
+use Nette\Application\Responses\RedirectResponse;
 use Nette\Application\UI\Presenter;
+use Nette\Http\IRequest;
+use Nette\Http\Url;
 
 /**
  * @author Jáchym Toušek
@@ -21,9 +25,17 @@ trait TRequestStoragePresenter
 	/** @var RequestStorage */
 	private $requestStorage;
 
-	final public function injectRequestStorage(RequestStorage $requestStorage)
+	/** @var IRouter */
+	private $router;
+
+	/** @var IRequest */
+	private $httpRequest;
+
+	final public function injectRequestStorage(RequestStorage $requestStorage, IRouter $router, IRequest $httpRequest)
 	{
 		$this->requestStorage = $requestStorage;
+		$this->router = $router;
+		$this->httpRequest = $httpRequest;
 	}
 
 	/**
@@ -61,6 +73,28 @@ trait TRequestStoragePresenter
 		$parameters[Presenter::FLASH_KEY] = $this->getParameter(Presenter::FLASH_KEY);
 		$request->setParameters($parameters);
 		$this->sendResponse(new ForwardResponse($request));
+	}
+
+	/**
+	 * Restores request from session.
+	 * @param string $key
+	 */
+	public function redirectToRequest($key = NULL)
+	{
+		if ($key === NULL) {
+			$key = $this->backlink;
+		}
+		$request = $this->requestStorage->loadRequest($key);
+		if (!$request) {
+			return;
+		}
+		$parameters = $request->getParameters();
+		$parameters[Presenter::FLASH_KEY] = $this->getParameter(Presenter::FLASH_KEY);
+		$request->setParameters($parameters);
+		$refUrl = new Url($this->httpRequest->getUrl());
+		$refUrl->setPath($this->httpRequest->getUrl()->getScriptPath());
+		$url = $this->router->constructUrl($request, $refUrl);
+		$this->sendResponse(new RedirectResponse($url));
 	}
 
 	public function beforeRender()
