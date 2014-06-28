@@ -16,6 +16,8 @@ use Nette\Utils\Strings;
 class RequestStorage extends Object
 {
 
+	const REQUEST_KEY = '_rid';
+
 	const SESSION_SECTION = 'Enumag.Application/requests';
 
 	/** @var User */
@@ -60,16 +62,19 @@ class RequestStorage extends Object
 	/**
 	 * Loads request from session.
 	 * @param string $key
+	 * @param book $remove	 
 	 * @return Request
 	 */
-	public function loadRequest($key)
+	public function loadRequest($key, $remove = TRUE)
 	{
 		$session = $this->session->getSection(self::SESSION_SECTION);
 		if (!isset($session[$key]) || ($session[$key][0] !== NULL && $session[$key][0] !== $this->user->getId())) {
 			return;
 		}
 		$request = $session[$key][1];
-		unset($session[$key]);
+		if ($remove) {
+			unset($session[$key]);
+		}
 
 		if ($this->loader) {
 			try {

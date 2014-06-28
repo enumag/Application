@@ -84,17 +84,33 @@ trait TRequestStoragePresenter
 		if ($key === NULL) {
 			$key = $this->backlink;
 		}
-		$request = $this->requestStorage->loadRequest($key);
+		$request = $this->requestStorage->loadRequest($key, FALSE);
 		if (!$request) {
 			return;
 		}
 		$parameters = $request->getParameters();
 		$parameters[Presenter::FLASH_KEY] = $this->getParameter(Presenter::FLASH_KEY);
+		$parameters[RequestStorage::REQUEST_KEY] = $key;
 		$request->setParameters($parameters);
 		$refUrl = new Url($this->httpRequest->getUrl());
 		$refUrl->setPath($this->httpRequest->getUrl()->getScriptPath());
 		$url = $this->router->constructUrl($request, $refUrl);
 		$this->sendResponse(new RedirectResponse($url));
+	}
+
+	/**
+	 * @param Request $request
+	 */
+	public function run(Request $request)
+	{
+		if (isset($request->getParameters()[RequestStorage::REQUEST_KEY])) {
+			$stored = $this->requestStorage->loadRequest($request->getParameters()[RequestStorage::REQUEST_KEY]);
+			/** @var Request $stored */
+			if ($stored && $stored->getPresenterName() === $request->getPresenterName()) {
+				$request = $stored;
+			}
+		}
+		return parent::run($request);
 	}
 
 	public function beforeRender()
