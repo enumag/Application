@@ -99,6 +99,16 @@ trait TRequestStoragePresenter
 	}
 
 	/**
+	 * @link https://github.com/nette/nette/pull/1370
+	 */
+	public function canonicalize()
+	{
+		if (!$this->request->hasFlag(Request::RESTORED)) {
+			parent::canonicalize();
+		}
+	}
+
+	/**
 	 * @param Request $request
 	 */
 	public function run(Request $request)
