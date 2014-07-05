@@ -127,7 +127,7 @@ trait TRequestStoragePresenter
 	{
 		parent::beforeRender();
 
-		$method = 'render' . $this->getAction();
+		$method = 'action' . $this->getAction();
 		$element = $this->getReflection()->hasMethod($method) ? $this->getReflection()->getMethod($method) : NULL;
 		if ($element && $element->getAnnotation('Backlink') && !$this->getSignal()) {
 			$this->backlink = $this->storeRequest();
