@@ -2,7 +2,7 @@
 
 namespace Enumag\Application;
 
-use Arachne\EntityLoader\EntityLoader;
+use Arachne\EntityLoader\Application\RequestEntityLoader;
 use Nette\Application\BadRequestException;
 use Nette\Application\Request;
 use Nette\Http\Session;
@@ -26,10 +26,10 @@ class RequestStorage extends Object
 	/** @var Session */
 	protected $session;
 
-	/** @var EntityLoader|null */
+	/** @var RequestEntityLoader|null */
 	protected $loader;
 
-	public function __construct(User $user, Session $session, EntityLoader $loader = NULL)
+	public function __construct(User $user, Session $session, RequestEntityLoader $loader = NULL)
 	{
 		$this->user = $user;
 		$this->session = $session;
