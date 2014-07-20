@@ -62,19 +62,15 @@ class RequestStorage extends Object
 	/**
 	 * Loads request from session.
 	 * @param string $key
-	 * @param book $remove	 
 	 * @return Request
 	 */
-	public function loadRequest($key, $remove = TRUE)
+	public function loadRequest($key)
 	{
 		$session = $this->session->getSection(self::SESSION_SECTION);
 		if (!isset($session[$key]) || ($session[$key][0] !== NULL && $session[$key][0] !== $this->user->getId())) {
 			return;
 		}
 		$request = $session[$key][1];
-		if ($remove) {
-			unset($session[$key]);
-		}
 
 		if ($this->loader) {
 			try {

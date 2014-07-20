@@ -84,7 +84,7 @@ trait TRequestStoragePresenter
 		if ($key === NULL) {
 			$key = $this->backlink;
 		}
-		$request = $this->requestStorage->loadRequest($key, FALSE);
+		$request = $this->requestStorage->loadRequest($key);
 		if (!$request) {
 			return;
 		}
