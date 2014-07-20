@@ -108,6 +108,13 @@ trait TRequestStoragePresenter
 		}
 	}
 
+	public function processSignal()
+	{
+		if (!$this->request->hasFlag(Request::RESTORED)) {
+			parent::processSignal();
+		}
+	}
+
 	/**
 	 * @param Request $request
 	 */
