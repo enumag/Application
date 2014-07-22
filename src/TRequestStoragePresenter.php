@@ -136,7 +136,9 @@ trait TRequestStoragePresenter
 
 		$method = 'action' . $this->getAction();
 		$element = $this->getReflection()->hasMethod($method) ? $this->getReflection()->getMethod($method) : NULL;
-		if ($element && $element->getAnnotation('Backlink') && !$this->getSignal()) {
+		if ($element && $element->getAnnotation('Backlink')
+			&& !isset($this->getRequest()->parameters[Presenter::SIGNAL_KEY])
+			&& !isset($this->getRequest()->post[Presenter::SIGNAL_KEY])) {
 			$this->backlink = $this->storeRequest();
 		}
 	}
