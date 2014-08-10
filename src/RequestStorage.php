@@ -70,7 +70,8 @@ class RequestStorage extends Object
 		if (!isset($session[$key]) || ($session[$key][0] !== NULL && $session[$key][0] !== $this->user->getId())) {
 			return;
 		}
-		$request = $session[$key][1];
+		// Cloning is necessary to prevent the stored request from being modified too.
+		$request = clone $session[$key][1];
 
 		if ($this->loader) {
 			try {
