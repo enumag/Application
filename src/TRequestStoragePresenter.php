@@ -124,6 +124,13 @@ trait TRequestStoragePresenter
 			$stored = $this->requestStorage->loadRequest($request->getParameters()[RequestStorage::REQUEST_KEY]);
 			/** @var Request $stored */
 			if ($stored && $stored->getPresenterName() === $request->getPresenterName()) {
+				$parameters = $stored->getParameters();
+				if (isset($request->getParameters()[Presenter::FLASH_KEY])) {
+					$parameters[Presenter::FLASH_KEY] = $request->getParameters()[Presenter::FLASH_KEY];
+				} else {
+					unset($parameters[Presenter::FLASH_KEY]);
+				}
+				$stored->setParameters($parameters);
 				$request = $stored;
 			}
 		}
