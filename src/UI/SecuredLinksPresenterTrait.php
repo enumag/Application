@@ -2,7 +2,6 @@
 
 namespace Enumag\Application\UI;
 
-use Arachne\EntityLoader\EntityLoader;
 use Doctrine\Common\Util\ClassUtils;
 use Nextras\Application\UI\SecuredLinksPresenterTrait as BaseSecuredLinksPresenterTrait;
 
@@ -17,7 +16,9 @@ trait SecuredLinksPresenterTrait
 	}
 
 	/**
-	 * @var EntityLoader
+	 * @todo The var annotation has to be fully qualified.
+	 * @link https://github.com/Kdyby/Autowired/issues/17
+	 * @var \Arachne\EntityLoader\EntityLoader
 	 * @autowire
 	 */
 	protected $entityLoader;
