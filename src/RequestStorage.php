@@ -46,7 +46,7 @@ class RequestStorage extends Object
 	{
 		$request = clone $request;
 		if ($this->loader) {
-			$this->loader->removeEntities($request);
+			$this->loader->filterOut($request);
 		}
 
 		$session = $this->session->getSection(self::SESSION_SECTION);
@@ -75,7 +75,7 @@ class RequestStorage extends Object
 
 		if ($this->loader) {
 			try {
-				$this->loader->loadEntities($request);
+				$this->loader->filterIn($request);
 			} catch (BadRequestException $e) {
 				return;
 			}
