@@ -14,11 +14,11 @@ class ApplicationExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
-		$builder->addDefinition($this->prefix('requestStorage'))
-			->setClass('Enumag\Application\RequestStorage');
-
 		$builder->getDefinition('application')
 			->setClass('Enumag\Application\Application');
+
+		$builder->addDefinition($this->prefix('requestStorage'))
+			->setClass('Enumag\Application\UI\RequestStorage');
 	}
 
 }

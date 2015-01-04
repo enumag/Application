@@ -1,6 +1,6 @@
 <?php
 
-namespace Enumag\Application;
+namespace Enumag\Application\UI;
 
 use Nette\Application\IRouter;
 use Nette\Application\Request;
@@ -13,7 +13,7 @@ use Nette\Http\Url;
 /**
  * @author Jáchym Toušek
  */
-trait TRequestStoragePresenter
+trait RequestStoragePresenterTrait
 {
 
 	/**

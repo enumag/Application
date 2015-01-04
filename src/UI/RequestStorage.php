@@ -1,6 +1,6 @@
 <?php
 
-namespace Enumag\Application;
+namespace Enumag\Application\UI;
 
 use Arachne\EntityLoader\Application\RequestEntityLoader;
 use Nette\Application\BadRequestException;
