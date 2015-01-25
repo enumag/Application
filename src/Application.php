@@ -13,6 +13,9 @@ use Nette\Application\UI\Presenter;
 use Nette\Http\IRequest;
 use Nette\Http\IResponse;
 
+/**
+ * @author Jáchym Toušek <enumag@gmail.com>
+ */
 class Application extends BaseApplication
 {
 

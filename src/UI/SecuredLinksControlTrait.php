@@ -6,7 +6,7 @@ use Nette\Application\UI\InvalidLinkException;
 use Nextras\Application\UI\SecuredLinksControlTrait as BaseSecuredLinksControlTrait;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 trait SecuredLinksControlTrait
 {

@@ -6,7 +6,7 @@ use Doctrine\Common\Util\ClassUtils;
 use Nextras\Application\UI\SecuredLinksPresenterTrait as BaseSecuredLinksPresenterTrait;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 trait SecuredLinksPresenterTrait
 {

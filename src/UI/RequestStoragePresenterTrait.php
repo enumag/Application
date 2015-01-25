@@ -11,7 +11,7 @@ use Nette\Http\IRequest;
 use Nette\Http\Url;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 trait RequestStoragePresenterTrait
 {

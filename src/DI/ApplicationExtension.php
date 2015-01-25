@@ -5,7 +5,7 @@ namespace Enumag\Application\DI;
 use Nette\DI\CompilerExtension;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class ApplicationExtension extends CompilerExtension
 {

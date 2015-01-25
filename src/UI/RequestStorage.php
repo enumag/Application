@@ -11,7 +11,7 @@ use Nette\Security\User;
 use Nette\Utils\Strings;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class RequestStorage extends Object
 {
