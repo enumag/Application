@@ -7,7 +7,6 @@ use Nette\Application\BadRequestException;
 use Nette\Application\Request;
 use Nette\Http\Session;
 use Nette\Object;
-use Nette\Security\User;
 use Nette\Utils\Strings;
 
 /**
@@ -20,18 +19,14 @@ class RequestStorage extends Object
 
 	const SESSION_SECTION = 'Enumag.Application/requests';
 
-	/** @var User */
-	protected $user;
-
 	/** @var Session */
 	protected $session;
 
 	/** @var RequestEntityLoader|null */
 	protected $loader;
 
-	public function __construct(User $user, Session $session, RequestEntityLoader $loader = NULL)
+	public function __construct(Session $session, RequestEntityLoader $loader = NULL)
 	{
-		$this->user = $user;
 		$this->session = $session;
 		$this->loader = $loader;
 	}
@@ -54,7 +49,7 @@ class RequestStorage extends Object
 			$key = Strings::random(5);
 		} while (isset($session[$key]));
 
-		$session[$key] = [ $this->user->getId(), $request ];
+		$session[$key] = $request;
 		$session->setExpiration($expiration, $key);
 		return $key;
 	}
@@ -67,11 +62,11 @@ class RequestStorage extends Object
 	public function loadRequest($key)
 	{
 		$session = $this->session->getSection(self::SESSION_SECTION);
-		if (!isset($session[$key]) || ($session[$key][0] !== NULL && $session[$key][0] !== $this->user->getId())) {
+		if (!isset($session[$key])) {
 			return;
 		}
 		// Cloning is necessary to prevent the stored request from being modified too.
-		$request = clone $session[$key][1];
+		$request = clone $session[$key];
 
 		if ($this->loader) {
 			try {
