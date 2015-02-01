@@ -12,6 +12,7 @@ use Nette\Application\Request;
 use Nette\Application\UI\Presenter;
 use Nette\Http\IRequest;
 use Nette\Http\IResponse;
+use Nette\Http\Response;
 
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
@@ -60,6 +61,9 @@ class Application extends BaseApplication
 
 	public function processException(\Exception $e)
 	{
+		if (!$e instanceof BadRequestException && $this->httpResponse instanceof Response) {
+			$this->httpResponse->warnOnBuffer = FALSE;
+		}
 		if (!$this->httpResponse->isSent()) {
 			$this->httpResponse->setCode($e instanceof BadRequestException ? ($e->getCode() ?: 404) : 500);
 		}
