@@ -23,7 +23,7 @@ class ApplicationExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		$builder->getDefinition($builder->getByType('Nette\Application\Application') ?: 'application')
-			->setClass('Enumag\Application\Application');
+			->setFactory('Enumag\Application\Application');
 	}
 
 }
