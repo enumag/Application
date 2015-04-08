@@ -2,7 +2,7 @@
 
 namespace Enumag\Application\DI;
 
-use Nette\DI\CompilerExtension;
+use Arachne\DIHelpers\CompilerExtension;
 
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
@@ -14,8 +14,10 @@ class ApplicationExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
-		$builder->addDefinition($this->prefix('requestStorage'))
-			->setClass('Enumag\Application\UI\RequestStorage');
+		if ($this->getExtension('Nette\Bridges\HttpDI\SessionExtension', FALSE) || $this->getExtension('Nette\Bridges\Framework\NetteExtension', FALSE)) {
+			$builder->addDefinition($this->prefix('requestStorage'))
+				->setClass('Enumag\Application\UI\RequestStorage');
+		}
 	}
 
 	public function beforeCompile()
