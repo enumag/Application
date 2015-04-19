@@ -3,6 +3,7 @@
 namespace Enumag\Application\UI;
 
 use Arachne\EntityLoader\Application\RequestEntityLoader;
+use Arachne\EntityLoader\Application\RequestEntityUnloader;
 use Nette\Application\BadRequestException;
 use Nette\Application\Request;
 use Nette\Http\Session;
@@ -24,11 +25,15 @@ class RequestStorage extends Object
 
 	/** @var RequestEntityLoader|null */
 	protected $loader;
+	
+	/** @var RequestEntityUnloader|null */
+	protected $unloader;
 
-	public function __construct(Session $session, RequestEntityLoader $loader = NULL)
+	public function __construct(Session $session, RequestEntityLoader $loader = NULL, RequestEntityUnloader $unloader = NULL)
 	{
 		$this->session = $session;
 		$this->loader = $loader;
+		$this->unloader = $unloader;
 	}
 
 	/**
@@ -40,7 +45,9 @@ class RequestStorage extends Object
 	public function storeRequest(Request $request, $expiration = '+ 10 minutes')
 	{
 		$request = clone $request;
-		if ($this->loader) {
+		if ($this->unloader) {
+			$this->unloader->filterOut($request);
+		} elseif ($this->loader) {
 			$this->loader->filterOut($request);
 		}
 
