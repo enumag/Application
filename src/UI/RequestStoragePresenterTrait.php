@@ -44,9 +44,9 @@ trait RequestStoragePresenterTrait
 	 * @param mixed $expiration
 	 * @return string
 	 */
-	public function storeRequest($request = NULL, $expiration = '+ 10 minutes')
+	public function storeRequest($request = null, $expiration = '+ 10 minutes')
 	{
-		if ($request === NULL) {
+		if ($request === null) {
 			$request = $this->request;
 		} elseif (!$request instanceof Request) { // first parameter is optional
 			$expiration = $request;
@@ -60,9 +60,9 @@ trait RequestStoragePresenterTrait
 	 * Restores request from session.
 	 * @param string $key
 	 */
-	public function restoreRequest($key = NULL)
+	public function restoreRequest($key = null)
 	{
-		if ($key === NULL) {
+		if ($key === null) {
 			$key = $this->backlink;
 		}
 		$request = $this->requestStorage->loadRequest($key);
@@ -79,9 +79,9 @@ trait RequestStoragePresenterTrait
 	 * Restores request from session.
 	 * @param string $key
 	 */
-	public function redirectToRequest($key = NULL)
+	public function redirectToRequest($key = null)
 	{
-		if ($key === NULL) {
+		if ($key === null) {
 			$key = $this->backlink;
 		}
 		$request = $this->requestStorage->loadRequest($key);
@@ -124,7 +124,7 @@ trait RequestStoragePresenterTrait
 			$stored = $this->requestStorage->loadRequest($request->getParameters()[RequestStorage::REQUEST_KEY]);
 			/** @var Request $stored */
 			if ($stored && $stored->getPresenterName() === $request->getPresenterName()) {
-				$stored->setFlag(Request::RESTORED, TRUE);
+				$stored->setFlag(Request::RESTORED, true);
 				$parameters = $stored->getParameters();
 				if (isset($request->getParameters()[Presenter::FLASH_KEY])) {
 					$parameters[Presenter::FLASH_KEY] = $request->getParameters()[Presenter::FLASH_KEY];
@@ -143,7 +143,7 @@ trait RequestStoragePresenterTrait
 		parent::beforeRender();
 
 		$method = 'action' . $this->getAction();
-		$element = $this->getReflection()->hasMethod($method) ? $this->getReflection()->getMethod($method) : NULL;
+		$element = $this->getReflection()->hasMethod($method) ? $this->getReflection()->getMethod($method) : null;
 		if ($element && $element->getAnnotation('Backlink')
 			&& !isset($this->getRequest()->parameters[Presenter::SIGNAL_KEY])
 			&& !isset($this->getRequest()->post[Presenter::SIGNAL_KEY])) {

@@ -44,7 +44,7 @@ class Application extends BaseApplication
 			$this->onError($this, $e);
 
 			// if catchExceptions is NULL, catch only BadRequestException
-			if (($this->catchExceptions || ($this->catchExceptions === NULL && $e instanceof BadRequestException)) && $this->errorPresenter) {
+			if (($this->catchExceptions || ($this->catchExceptions === null && $e instanceof BadRequestException)) && $this->errorPresenter) {
 				try {
 					$this->processException($e);
 					$this->onShutdown($this, $e);
@@ -62,7 +62,7 @@ class Application extends BaseApplication
 	public function processException(\Exception $e)
 	{
 		if (!$e instanceof BadRequestException && $this->httpResponse instanceof Response) {
-			$this->httpResponse->warnOnBuffer = FALSE;
+			$this->httpResponse->warnOnBuffer = false;
 		}
 		if (!$this->httpResponse->isSent()) {
 			$this->httpResponse->setCode($e instanceof BadRequestException ? ($e->getCode() ?: 404) : 500);
@@ -70,7 +70,7 @@ class Application extends BaseApplication
 
 		$requests = $this->getRequests();
 		$request = end($requests);
-		$args = array('exception' => $e, 'request' => $request ?: NULL);
+		$args = array('exception' => $e, 'request' => $request ?: null);
 		$errorPresenter = $request ? $this->findErrorPresenter($request->getPresenterName()) : $this->errorPresenter;
 
 		if ($this->presenter instanceof Presenter) {
@@ -88,7 +88,7 @@ class Application extends BaseApplication
 	{
 		while ($module !== '') {
 			$pos = strrpos($module, ':');
-			$module = $pos !== FALSE ? substr($module, 0, $pos) : '';
+			$module = $pos !== false ? substr($module, 0, $pos) : '';
 			$errorPresenter = "$module:$this->errorPresenter";
 			try {
 				$this->presenterFactory->getPresenterClass($errorPresenter);

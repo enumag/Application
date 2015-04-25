@@ -25,11 +25,11 @@ class RequestStorage extends Object
 
 	/** @var RequestEntityLoader|null */
 	protected $loader;
-	
+
 	/** @var RequestEntityUnloader|null */
 	protected $unloader;
 
-	public function __construct(Session $session, RequestEntityLoader $loader = NULL, RequestEntityUnloader $unloader = NULL)
+	public function __construct(Session $session, RequestEntityLoader $loader = null, RequestEntityUnloader $unloader = null)
 	{
 		$this->session = $session;
 		$this->loader = $loader;
@@ -83,7 +83,7 @@ class RequestStorage extends Object
 			}
 		}
 
-		$request->setFlag(Request::RESTORED, TRUE);
+		$request->setFlag(Request::RESTORED, true);
 		return $request;
 	}
 

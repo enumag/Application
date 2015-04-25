@@ -19,8 +19,8 @@
 	},
 	"require-dev": {
 		"php": ">=5.4.0",
-		"squizlabs/php_codesniffer": "~1.4",
-		"arachne/coding-style": "~0.2"
+		"squizlabs/php_codesniffer": "~2.0",
+		"arachne/coding-style": "~0.3.0"
 	},
 	"suggest": {
 		"arachne/verifier": "Provides annotations-based security.",

@@ -14,7 +14,7 @@ class ApplicationExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
-		if ($this->getExtension('Nette\Bridges\HttpDI\SessionExtension', FALSE) || $this->getExtension('Nette\Bridges\Framework\NetteExtension', FALSE)) {
+		if ($this->getExtension('Nette\Bridges\HttpDI\SessionExtension', false) || $this->getExtension('Nette\Bridges\Framework\NetteExtension', false)) {
 			$builder->addDefinition($this->prefix('requestStorage'))
 				->setClass('Enumag\Application\UI\RequestStorage');
 		}
