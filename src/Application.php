@@ -71,19 +71,7 @@ class Application extends BaseApplication
 		$requests = $this->getRequests();
 		$request = end($requests);
 		$args = array('exception' => $e, 'request' => $request ?: NULL);
-
-		if ($request) {
-			$name = $request->getPresenterName();
-			$pos = strrpos($name, ':');
-			$module = $pos !== FALSE ? substr($name, 0, $pos) : '';
-			$errorPresenter = "$module:$this->errorPresenter";
-		}
-
-		try {
-			$this->presenterFactory->getPresenterClass($errorPresenter);
-		} catch (InvalidPresenterException $_) {
-			$errorPresenter = $this->errorPresenter;
-		}
+		$errorPresenter = $request ? $this->findErrorPresenter($request->getPresenterName()) : $this->errorPresenter;
 
 		if ($this->presenter instanceof Presenter) {
 			try {
@@ -94,6 +82,22 @@ class Application extends BaseApplication
 		} else {
 			$this->processRequest(new Request($errorPresenter, Request::FORWARD, $args));
 		}
+	}
+
+	private function findErrorPresenter($module)
+	{
+		while ($module !== '') {
+			$pos = strrpos($module, ':');
+			$module = $pos !== FALSE ? substr($module, 0, $pos) : '';
+			$errorPresenter = "$module:$this->errorPresenter";
+			try {
+				$this->presenterFactory->getPresenterClass($errorPresenter);
+			} catch (InvalidPresenterException $_) {
+				continue;
+			}
+			return $errorPresenter;
+		}
+		return $this->errorPresenter;
 	}
 
 }
