@@ -16,12 +16,6 @@ use Nette\Http\Url;
 trait RequestStoragePresenterTrait
 {
 
-	/**
-	 * @persistent
-	 * @var string
-	 */
-	public $backlink;
-
 	/** @var RequestStorage */
 	private $requestStorage;
 
@@ -60,11 +54,8 @@ trait RequestStoragePresenterTrait
 	 * Restores request from session.
 	 * @param string $key
 	 */
-	public function restoreRequest($key = null)
+	public function restoreRequest($key)
 	{
-		if ($key === null) {
-			$key = $this->backlink;
-		}
 		$request = $this->requestStorage->loadRequest($key);
 		if (!$request) {
 			return;
@@ -79,11 +70,8 @@ trait RequestStoragePresenterTrait
 	 * Restores request from session.
 	 * @param string $key
 	 */
-	public function redirectToRequest($key = null)
+	public function redirectToRequest($key)
 	{
-		if ($key === null) {
-			$key = $this->backlink;
-		}
 		$request = $this->requestStorage->loadRequest($key);
 		if (!$request) {
 			return;
@@ -136,19 +124,6 @@ trait RequestStoragePresenterTrait
 			}
 		}
 		return parent::run($request);
-	}
-
-	public function beforeRender()
-	{
-		parent::beforeRender();
-
-		$method = 'action' . $this->getAction();
-		$element = $this->getReflection()->hasMethod($method) ? $this->getReflection()->getMethod($method) : null;
-		if ($element && $element->getAnnotation('Backlink')
-			&& !isset($this->getRequest()->parameters[Presenter::SIGNAL_KEY])
-			&& !isset($this->getRequest()->post[Presenter::SIGNAL_KEY])) {
-			$this->backlink = $this->storeRequest();
-		}
 	}
 
 }
