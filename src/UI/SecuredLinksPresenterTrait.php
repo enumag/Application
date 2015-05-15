@@ -2,7 +2,7 @@
 
 namespace Enumag\Application\UI;
 
-use Doctrine\Common\Util\ClassUtils;
+use Arachne\EntityLoader\EntityUnloader;
 use Nextras\Application\UI\SecuredLinksPresenterTrait as BaseSecuredLinksPresenterTrait;
 
 /**
@@ -16,18 +16,16 @@ trait SecuredLinksPresenterTrait
 	}
 
 	/**
-	 * @todo The var annotation has to be fully qualified.
-	 * @link https://github.com/Kdyby/Autowired/issues/17
-	 * @var \Arachne\EntityLoader\EntityLoader
+	 * @var EntityUnloader
 	 * @autowire
 	 */
-	protected $entityLoader;
+	protected $entityUnloader;
 
 	public function getCsrfToken($control, $method, $params)
 	{
 		array_walk($params, function (&$value) {
 			if (is_object($value)) {
-				$value = $this->entityLoader->filterOut(ClassUtils::getRealClass(get_class($value)), $value);
+				$value = $this->entityUnloader->filterOut($value);
 			}
 		});
 		return $this->parentGetCsrfToken($control, $method, $params);
