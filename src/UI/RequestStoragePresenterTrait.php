@@ -83,7 +83,7 @@ trait RequestStoragePresenterTrait
 		$refUrl = new Url($this->httpRequest->getUrl());
 		$refUrl->setPath($this->httpRequest->getUrl()->getScriptPath());
 		$url = $this->router->constructUrl($request, $refUrl);
-		$this->sendResponse(new RedirectResponse($url));
+		$this->redirectUrl($url);
 	}
 
 	/**
