@@ -4,8 +4,6 @@ namespace Enumag\Application\UI;
 
 use Nette\Application\IRouter;
 use Nette\Application\Request;
-use Nette\Application\Responses\ForwardResponse;
-use Nette\Application\Responses\RedirectResponse;
 use Nette\Application\UI\Presenter;
 use Nette\Http\IRequest;
 use Nette\Http\Url;
@@ -63,7 +61,7 @@ trait RequestStoragePresenterTrait
 		$parameters = $request->getParameters();
 		$parameters[Presenter::FLASH_KEY] = $this->getParameter(Presenter::FLASH_KEY);
 		$request->setParameters($parameters);
-		$this->sendResponse(new ForwardResponse($request));
+		$this->forward($request);
 	}
 
 	/**
