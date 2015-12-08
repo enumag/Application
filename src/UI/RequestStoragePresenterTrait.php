@@ -106,7 +106,7 @@ trait RequestStoragePresenterTrait
 	 */
 	public function run(Request $request)
 	{
-		if (isset($request->getParameters()[RequestStorage::REQUEST_KEY])) {
+		if ($request->isMethod('get') && isset($request->getParameters()[RequestStorage::REQUEST_KEY])) {
 			$stored = $this->requestStorage->loadRequest($request->getParameters()[RequestStorage::REQUEST_KEY]);
 			/** @var Request $stored */
 			if ($stored && $stored->getPresenterName() === $request->getPresenterName()) {
