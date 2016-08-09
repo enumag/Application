@@ -84,11 +84,11 @@ class Application extends BaseApplication
 		$args = array('exception' => $e, 'request' => $request);
 		$errorPresenter = $request ? $this->findErrorPresenter($request->getPresenterName()) : $this->errorPresenter;
 
-		if ($this->presenter instanceof Presenter) {
+		if ($this->getPresenter() instanceof Presenter) {
 			try {
-				$this->presenter->forward(":$errorPresenter:", $args);
+				$this->getPresenter()->forward(":$errorPresenter:", $args);
 			} catch (AbortException $_) {
-				$this->processRequest($this->presenter->getLastCreatedRequest());
+				$this->processRequest($this->getPresenter()->getLastCreatedRequest());
 			}
 		} else {
 			$this->processRequest(new Request($errorPresenter, Request::FORWARD, $args));
