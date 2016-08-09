@@ -81,7 +81,7 @@ class Application extends BaseApplication
 
 		$requests = $this->getRequests();
 		$request = end($requests) ?: $this->initialRequest;
-		$args = array('exception' => $e, 'request' => $request);
+		$args = ['exception' => $e, 'request' => $request];
 		$errorPresenter = $request ? $this->findErrorPresenter($request->getPresenterName()) : $this->errorPresenter;
 
 		if ($this->getPresenter() instanceof Presenter) {

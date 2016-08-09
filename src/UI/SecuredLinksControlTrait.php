@@ -22,7 +22,7 @@ trait SecuredLinksControlTrait
 	 * @return string
 	 * @throws InvalidLinkException
 	 */
-	public function link($destination, $args = array())
+	public function link($destination, $args = [])
 	{
 		$first = substr($destination, 0, 1);
 		if (strtolower($first) !== $first || $first === ':') {
