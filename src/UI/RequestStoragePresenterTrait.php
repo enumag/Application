@@ -39,10 +39,10 @@ trait RequestStoragePresenterTrait
 	public function storeRequest($request = null, $expiration = '+ 10 minutes')
 	{
 		if ($request === null) {
-			$request = $this->request;
+			$request = $this->getRequest();
 		} elseif (!$request instanceof Request) { // first parameter is optional
 			$expiration = $request;
-			$request = $this->request;
+			$request = $this->getRequest();
 		}
 
 		return $this->requestStorage->storeRequest($request, $expiration);
@@ -89,14 +89,14 @@ trait RequestStoragePresenterTrait
 	 */
 	public function canonicalize()
 	{
-		if (!$this->request->hasFlag(Request::RESTORED)) {
+		if (!$this->getRequest()->hasFlag(Request::RESTORED)) {
 			parent::canonicalize();
 		}
 	}
 
 	public function processSignal()
 	{
-		if (!$this->request->hasFlag(Request::RESTORED)) {
+		if (!$this->getRequest()->hasFlag(Request::RESTORED)) {
 			parent::processSignal();
 		}
 	}
