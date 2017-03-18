@@ -8,7 +8,7 @@ use Nette\Application\BadRequestException;
 use Nette\Application\Request;
 use Nette\Http\Session;
 use Nette\Object;
-use Nette\Utils\Strings;
+use Nette\Utils\Random;
 
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
@@ -53,7 +53,7 @@ class RequestStorage extends Object
 
 		$session = $this->session->getSection(self::SESSION_SECTION);
 		do {
-			$key = Strings::random(5);
+			$key = Random::generate(5);
 		} while (isset($session[$key]));
 
 		$session[$key] = $request;
